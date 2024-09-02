@@ -1,5 +1,8 @@
 package co.edu.uniquindio.poo;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 
@@ -7,10 +10,12 @@ public class Agenda {
     
     private LinkedList<Contacto> contactos;
     private LinkedList<Grupo> grupos;
+    private LinkedList<Reunion> reuniones;
 
     public Agenda(){
         contactos= new LinkedList<>();
         grupos=  new LinkedList<>();
+        reuniones= new LinkedList<>();
     }
 
     public void CrearContacto(Contacto contacto){
@@ -146,6 +151,73 @@ public class Agenda {
             }
         }
         return null;
+    }
+
+    //Reunion
+    
+    public boolean validarReunion (String descripcion){
+        boolean nombreRepetidoReunion = false;
+        for (Reunion reunion: reuniones){
+            if (reunion.getDescripcion().equals(descripcion)){ 
+                nombreRepetidoReunion = true;
+            }
+        }
+        return nombreRepetidoReunion;
+    }
+    
+    public void CrearReunion(Reunion reunion){
+        boolean reunionRepetida = validarReunion(reunion.getDescripcion());
+        if(reunionRepetida){
+            System.out.println("Ya hay reunion con esa descripcion");
+        }
+        else{
+            reuniones.add(reunion);
+            System.out.println("reunion creada");
+        }
+        
+    }
+    
+    public void eliminarReunion(String descripcion){
+        boolean reunionexiste = validarReunion(descripcion);
+        if (reunionexiste) {
+            for(Reunion reunion: reuniones){
+                if(reunion.getDescripcion().equals(descripcion) ){
+                    reuniones.remove(reunion);
+                }
+            }
+            System.out.println("Reunion eliminada"); 
+        }
+        else{
+            System.out.println("Reunion no encontrada"); 
+        }
+    }
+    
+    public void ActualizarReunion(String descripcion, LocalDate fecha, String hora){
+        boolean reunionexiste = validarReunion(descripcion);
+        if (reunionexiste) {
+            for(Reunion reunion: reuniones){
+                if(reunion.getDescripcion().equals(descripcion) ){
+                    reunion.setFecha(fecha);
+                    reunion.setHora(hora);
+                }
+            }
+            System.out.println("Reunion actualizada"); 
+        }
+        else{
+            System.out.println("reunion no actualizado"); 
+        }
+    }
+    public Reunion buscarReunionPorNombre(String descripcion) {
+        for (Reunion reunion : reuniones) {
+            if (reunion.getDescripcion().equalsIgnoreCase(descripcion)) {
+                return reunion;
+            }
+        }
+        return null;
+    }
+    
+    public LinkedList<Reunion> listaReunion(){
+        return reuniones;
     }
 
 }

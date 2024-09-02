@@ -1,5 +1,9 @@
 package co.edu.uniquindio.poo;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -162,6 +166,61 @@ public class App {
                 System.out.println("opcion no valida");
             }
         }
-                
+        else if(seleccionMenuGenegeral.equals("3")){
+            String seleccionMenuReunion = JOptionPane.showInputDialog("Ingrese la opcion que desea realizar: \n 1= Crear reunion\n 2=Actualizar reunion \n 3=Eliminar reunion \n 4=listar reuniones e integrantes \n 5=Agregar un contacto a una reunion \n 5=Eliminar un contacto de una reunion ");
+
+            if (seleccionMenuReunion.equals("1")) {
+                String descripcion = JOptionPane.showInputDialog("Ingresa la descripcion de la reunion ");
+                LocalDate fecha= LocalDate.now();
+                String hora = JOptionPane.showInputDialog("Ingresa la hora de la reunión (0-23):");
+                Reunion reunion6 = new Reunion(descripcion, fecha,hora);
+                agenda.CrearReunion(reunion6);
+                System.out.println(agenda.listaReunion());
+            }
+            
+            //Actualizar reunion
+            else if(seleccionMenuReunion.equals("2")){
+                String descripcion = JOptionPane.showInputDialog("Ingresa la descripcion del grupo a actualizar");
+                LocalDate fecha= LocalDate.now();
+                String hora = JOptionPane.showInputDialog("Ingresa la hora de la reunión (0-23):");
+                agenda.ActualizarReunion(descripcion, fecha, hora);
+                System.out.println(agenda.listaReunion());
+            }
+            //Eliminar reunion
+            else if(seleccionMenuReunion.equals("3")){
+                String descripcion = JOptionPane.showInputDialog("Ingresa el nmmbre del grupo a eliminar ");
+                agenda.eliminarReunion(descripcion);
+                System.out.println(agenda.listaReunion());
+            }
+            //Mostrar reunion
+            else if (seleccionMenuReunion.equals("4")) {
+                System.out.println(agenda.listaReunion());
+            }
+            
+            //agregar contactos en un grupo
+            else if (seleccionMenuReunion.equals("5")) {
+                System.out.println(agenda.listaReunion());
+                String descripcion = JOptionPane.showInputDialog("Ingresa descripcion de la reunion");
+                Reunion reunionExistente = agenda.buscarReunionPorNombre(descripcion);
+                if (reunionExistente != null){
+                    String nombreContacto = JOptionPane.showInputDialog("Ingrese el nombre del contacto :");
+                    Contacto contactoEncontrado = Agenda.buscarContactoPorNombre(agenda.listarContactos(), nombreContacto);
+                    reunionExistente.agregarContactoReunion(contactoEncontrado);
+                }
+                System.out.println(agenda.listaReunion());
+            }
+            //eliminar contactos en un grupo
+            else if (seleccionMenuReunion.equals("6")) {
+                System.out.println(agenda.listaReunion());
+                String nombre = JOptionPane.showInputDialog("Ingresa descripcion de la reunion");
+                Reunion reunionExistente = agenda.buscarReunionPorNombre(nombre);
+                if (reunionExistente != null){
+                    String nombreContacto = JOptionPane.showInputDialog("Ingrese el nombre del contacto :");
+                    Contacto contactoEncontrado = Agenda.buscarContactoPorNombre(agenda.listarContactos(), nombreContacto);
+                    reunionExistente.eliminarContactoReunion(contactoEncontrado.getNombre());
+                }
+                System.out.println(agenda.listaReunion());
+            }
+        }
     }
 }
