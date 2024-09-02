@@ -6,9 +6,11 @@ import java.util.LinkedList;
 public class Agenda {
     
     private LinkedList<Contacto> contactos;
+    private LinkedList<Grupo> grupos;
 
     public Agenda(){
         contactos= new LinkedList<>();
+        grupos=  new LinkedList<>();
     }
 
     public void CrearContacto(Contacto contacto){
@@ -67,4 +69,66 @@ public class Agenda {
     public LinkedList<Contacto> listarContactos(){
         return contactos;
     }
+
+    //GRUPOS
+    public boolean validarGrupo (String nombre){
+        boolean nombreRepetidoGrupo = false;
+        for (Grupo grupo: grupos){
+            if (grupo.getNombre().equals(nombre)){ 
+                nombreRepetidoGrupo = true;
+            }
+        }
+        return nombreRepetidoGrupo;
+    }
+    
+    public void CrearGrupo(Grupo grupo){
+        boolean grupoRepetido = validarGrupo(grupo.getNombre());
+        if(grupoRepetido){
+            System.out.println("Grupo Existente");
+        }
+        else if (grupo.getContactos().size() < 5) {
+            System.out.println("El grupo debe contener al menos 5 contactos");
+        } 
+        else{
+            grupos.add(grupo);
+            System.out.println("Grupo creado");
+        }
+        
+    }
+    public LinkedList<Grupo> listarGrupos(){
+        return grupos;
+    }
+    public void eliminarGrupo(String nombre){
+        boolean grupoexiste = validarGrupo(nombre);
+        if (grupoexiste) {
+            for(Grupo grupo: grupos){
+                if(grupo.getNombre().equals(nombre) ){
+                    grupos.remove(grupo);
+                }
+            }
+            System.out.println("Grupo eliminado"); 
+        }
+        else{
+            System.out.println("grupo no encontrado"); 
+        }
+    }
+
+    
+    public void ActualizarGrupo(String nombre, String categoria, String nuevoNombre){
+        boolean grupoexiste = validarGrupo(nombre);
+        if (grupoexiste) {
+            for(Grupo grupo: grupos){
+                if(grupo.getNombre().equals(nombre) ){
+                    grupo.setNombre(nuevoNombre);
+                    grupo.setCategoria(categoria);
+                }
+            }
+            System.out.println("Grupo actualizado"); 
+        }
+        else{
+            System.out.println("grupo no actualizado"); 
+        }
+    }
+    
+
 }

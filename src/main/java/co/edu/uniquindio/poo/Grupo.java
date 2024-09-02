@@ -8,17 +8,17 @@ public class Grupo {
     private String categoria;
     private LinkedList <Contacto> contactos;
 
-    private Grupo(String nombre, String categoria){
+    public Grupo(String nombre, String categoria){
         this.nombre=nombre;
         this.categoria=categoria;
         contactos=new LinkedList<>();
     }
-    private enum categoria{
-        oficina,
-        fiesta,
-        amigos,
-        familia,
-    }
+   // private enum categoria{
+     //   oficina,
+       // fiesta,
+      //  amigos,
+       // familia,
+    //}
     public String getNombre() {
         return nombre;
     }
@@ -40,14 +40,14 @@ public class Grupo {
 
     @Override
     public String toString() {
-        return "El nombre de la categoria del grupo es: " + categoria + "y los contactos que pertenecen al grupo son: \n\n" + contactos;
+        return "\nEl grupo "+ nombre+ " de la categoria del grupo es: " + categoria + " y los contactos que pertenecen al grupo son: \n\n" + contactos;
     }
 
 
     public static void mostrarMensaje (String mensaje){
         System.out.println(mensaje);
     }
-
+    //1
     public void agregarContacto (Contacto contacto){
         if (validarNombre(contacto.getNombre())){
             mostrarMensaje("Error, el nombre"+contacto.getNombre()+ "ya existe");
@@ -76,7 +76,7 @@ public class Grupo {
         return telefonoRepetido;
     
 }
-
+//1
 public void eliminarContacto (String nombre){
     for (Contacto contacto: contactos){
         if (contacto.getNombre().equals(nombre)){
@@ -85,7 +85,7 @@ public void eliminarContacto (String nombre){
         }
     }
 }
-
+//1
 public void actualizarContacto (String alias, String direccion, String correo, String nombre){
     for (Contacto contacto: contactos){
         if (contacto.getNombre().equals(nombre)){
