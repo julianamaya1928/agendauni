@@ -129,6 +129,23 @@ public class Agenda {
             System.out.println("grupo no actualizado"); 
         }
     }
-    
+
+    public static Contacto buscarContactoPorNombre(LinkedList<Contacto> listaContactos, String nombre) {
+        for (Contacto contacto : listaContactos) {
+            if (contacto.getNombre().equalsIgnoreCase(nombre)) {
+                return contacto; // Contacto encontrado
+            }
+        }
+        return null; // Contacto no encontrado
+    }
+
+    public Grupo buscarGrupoPorNombre(String nombreGrupo) {
+        for (Grupo grupo : grupos) {
+            if (grupo.getNombre().equalsIgnoreCase(nombreGrupo)) {
+                return grupo;
+            }
+        }
+        return null;
+    }
 
 }
